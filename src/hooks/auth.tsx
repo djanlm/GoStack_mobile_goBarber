@@ -2,9 +2,17 @@ import React, { createContext, useCallback, useState, useContext, useEffect } fr
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../services/api';
 
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url: string;
+}
+
 interface AuthState {
   token: string;
-  user: object;
+  user: User;
 }
 interface SignInCredentials {
   email: string;
@@ -12,7 +20,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: object;
+  user: User;
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>; // retorn Promise por causa do async
   signOut(): void;
@@ -22,7 +30,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>({} as AuthState);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // usado pra mostrar a tela de login enquanto o asyncstorage busca os dados do usuario
 
   useEffect(() => {
    async function loadStorageData(): Promise<void> {
@@ -35,6 +43,8 @@ const AuthProvider: React.FC = ({ children }) => {
     ]); // retorna um array com chave e valor
 
     if(token[1] && user[1]){
+      api.defaults.headers.authorization = `Bearer ${token[1]}`;
+
       setData({token: token[1], user: JSON.parse(user[1]) });
     }
     setLoading(false);
@@ -53,6 +63,9 @@ const AuthProvider: React.FC = ({ children }) => {
       ['@GoBarber:token', token],
       ['@GoBarber:user', JSON.stringify(user)]
     ])
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
+
     setData({ token, user });
   }, []);
 
