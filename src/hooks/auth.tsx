@@ -50,7 +50,7 @@ const AuthProvider: React.FC = ({ children }) => {
     setLoading(false);
    }
    loadStorageData();
-  });
+  },[]);
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', {
