@@ -14,5 +14,6 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "import/no-duplicates": "off"
     }
 }
