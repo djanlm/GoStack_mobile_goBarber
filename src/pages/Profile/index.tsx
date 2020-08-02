@@ -171,7 +171,6 @@ const Profile: React.FC = () => {
       >
       <ScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{flex:1}}
       >
        <Container>
         <BackButton onPress={handleGoBack}>
@@ -195,7 +194,6 @@ const Profile: React.FC = () => {
               emailInputRef.current?.focus();
             }}
           />
-
           <Input
             ref={emailInputRef}
             keyboardType="email-address"
@@ -209,7 +207,6 @@ const Profile: React.FC = () => {
               oldPasswordInputRef.current?.focus();
             }}
           />
-
           <Input
             ref={oldPasswordInputRef}
             secureTextEntry
@@ -221,7 +218,6 @@ const Profile: React.FC = () => {
             containerStyle={{marginTop: 16}}
             onSubmitEditing={() =>{passwordInputRef.current?.focus();}}
           />
-
           <Input
             ref={passwordInputRef}
             secureTextEntry
@@ -232,9 +228,8 @@ const Profile: React.FC = () => {
             returnKeyType="next"
             onSubmitEditing={() =>{confirmPasswordInputRef.current?.focus();}}
           />
-
           <Input
-            ref={passwordInputRef}
+            ref={confirmPasswordInputRef}
             secureTextEntry
             textContentType="newPassword"
             name="password_confirmation"
