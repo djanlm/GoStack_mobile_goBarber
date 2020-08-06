@@ -31,7 +31,7 @@ export interface Provider {
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
 
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { navigate } = useNavigation();
 
 useEffect(()=> {
@@ -41,6 +41,7 @@ useEffect(()=> {
 }, []);
 
   const navigateToProfile = useCallback(() => {
+   // signOut(); // como nao tem botao de signOut, coloquei isso aqui provisoriamente.
     navigate('Profile');
 
   }, []);
